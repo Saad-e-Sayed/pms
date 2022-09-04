@@ -1,7 +1,7 @@
 
 from .parser_ import Parser
 from .lexer import Lexer
-
+from .optimizer import Optimizer
 
 
 pattern = '|'.join(
@@ -19,7 +19,7 @@ pattern = '|'.join(
             # entities
             lparen = r'\(',
             rparen = r'\)',
-            num = r'\d+(?:\.\d+)?',
+            num = r'\d+', # only integers are supported for now
             id = r'\w+',
             # others
             white_space = r'\s+',
@@ -34,6 +34,16 @@ tokenize = lexer.eval
 
 parser = Parser()
 parse = parser.parse
+
+optimizer = Optimizer()
+optimize = optimizer.eval
+
+
+def compile(expr):
+    tokens = lexer.eval(expr)
+    ast = parser.parse(tokens)
+    units = optimizer.eval(ast)
+    return units
 
 
 if __name__ == '__main__':

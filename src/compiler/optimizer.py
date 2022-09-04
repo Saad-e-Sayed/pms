@@ -5,11 +5,11 @@ from compiler.ast_ import Equation, BinOp, UnaryOp, Function, Variable, Number, 
 from .unit import Unit, Integer, Ratio, Variable as Var
 
 
-class Interpreter(NodeVisitor):
+class Optimizer(NodeVisitor):
     def generic_visit(self, node):
         return super().generic_visit(node)
     
-    def interpret(self, tree, namespace: dict[str, Unit] = None):
+    def eval(self, tree, namespace: dict[str, Unit] = None):
         self.equation = False
         self.namespace = namespace or {}
         returned = self.visit(tree)

@@ -1,8 +1,4 @@
 
-from compiler import lexer, parser
-from interpreter import Interpreter
+from compiler import compile
 
 
-tree = parser.parse(lexer.eval('a = 5 / b'))
-
-print(Interpreter().interpret(tree, {'b':3}))
